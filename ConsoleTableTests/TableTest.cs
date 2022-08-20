@@ -1,4 +1,5 @@
-﻿using ConsoleTable;
+﻿using System.Security.Cryptography.X509Certificates;
+using ConsoleTable;
 using Xunit;
 
 namespace ConsoleTableTests;
@@ -198,5 +199,34 @@ public class TableTest
                                 "| 2 | Sooo long row |\n" +
                                 ".....................";
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void CreatingTableFromEnumerableDto()
+    {
+        var collection = Enumerable.Repeat(new TestDto
+        {
+            Name = "Name",
+            Salary = 35,
+            Surname = "Surname"
+
+        }, 3);
+        var actual = Table.From(collection)
+            .SetStandardPadding(1)
+            .ToString();
+        const string expected = " | Name | Surname | Salary |\r\n" +
+                                " ---------------------------\n" +
+                                " | Name | Surname | 35     |\n" +
+                                " | Name | Surname | 35     |\n" +
+                                " | Name | Surname | 35     |";
+        Assert.Equal(expected,actual);
+
+    }
+
+    public class TestDto
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public decimal Salary { get; set; }
     }
 }
