@@ -1,23 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ConsoleTable
 {
     public class ConsoleTableOptions
     {
-        public readonly Dictionary<object, string> CustomFormats;
-        public bool SeparateEachRow;
-        public char Separator;
-
-        public ConsoleTableOptions()
+        public ConsoleTableOptions() : this(CultureInfo.CurrentCulture)
         {
-            CustomFormats = new Dictionary<object, string>();
-            RowsWithoutColumns = new Dictionary<int, List<string>>();
-            Alignments = Array.Empty<Alignment>();
-            Separator = '-';
         }
 
+        public ConsoleTableOptions(CultureInfo cultureInfo)
+        {
+            CustomFormats = new Dictionary<object, string>();
+            RowsWithoutColumns = new Dictionary<int, List<RowWithoutColumn>>();
+            Alignments = Array.Empty<Alignment>();
+            Separator = '-';
+            CultureInfo = cultureInfo;
+            NestedTables = new Dictionary<int, List<Table>>();
+            EnableAutoIndentForNestedTables = true;
+        }
+
+        public Dictionary<object, string> CustomFormats { get; }
+        public bool SeparateEachRow { get; set; }
+        public char Separator { get; set; }
+        public CultureInfo CultureInfo { get; set; }
+
         public Alignment[] Alignments { get; set; }
-        public Dictionary<int, List<string>> RowsWithoutColumns { get; }
+        public Dictionary<int, List<RowWithoutColumn>> RowsWithoutColumns { get; }
+        public Dictionary<int, List<Table>> NestedTables { get; }
+        public bool EnableAutoIndentForNestedTables { get; set; }
     }
 }
