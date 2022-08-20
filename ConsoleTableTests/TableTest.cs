@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using ConsoleTable;
+﻿using ConsoleTable;
 using Xunit;
 
 namespace ConsoleTableTests;
@@ -209,7 +208,6 @@ public class TableTest
             Name = "Name",
             Salary = 35,
             Surname = "Surname"
-
         }, 3);
         var actual = Table.From(collection)
             .SetStandardPadding(1)
@@ -219,8 +217,7 @@ public class TableTest
                                 " | Name | Surname | 35     |\n" +
                                 " | Name | Surname | 35     |\n" +
                                 " | Name | Surname | 35     |";
-        Assert.Equal(expected,actual);
-
+        Assert.Equal(expected, actual);
     }
 
     public class TestDto
