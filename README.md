@@ -1,5 +1,14 @@
 # ConsoleTable
 A library for simple table formatting
+## Install
+### PM
+```
+Install-Package ConsoleTable
+```
+### .NET CLI
+```
+dotnet add package ConsoleTable --version 1.0.0
+```
 ## Example usage
 ```
             var table = new Table()
