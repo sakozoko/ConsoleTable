@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -165,6 +166,22 @@ namespace ConsoleTable
             return this;
         }
 
+        public static Table From<T>(IEnumerable<T> enumerable)
+        {
+            var table = new Table();
+
+            foreach (var propertyInfo in typeof(T).GetProperties())
+                table.AddColumn(propertyInfo.Name);
+
+            foreach (var element in enumerable)
+                table.AddRow(typeof(T)
+                    .GetProperties()
+                    .Select(x => x.GetValue(element))
+                    .ToArray());
+
+            return table;
+        }
+        
         public Table SetStandardPadding(int value)
         {
             if (value < 0)
