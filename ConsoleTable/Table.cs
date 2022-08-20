@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -97,7 +96,7 @@ namespace ConsoleTable
                 return this;
             }
 
-            throw new IndexOutOfRangeException("Index of column greater than column count");
+            throw new ArgumentException("Index of column greater than column count");
         }
 
         public Table AddRow(params object[] strings)
@@ -181,7 +180,7 @@ namespace ConsoleTable
 
             return table;
         }
-        
+
         public Table SetStandardPadding(int value)
         {
             if (value < 0)
