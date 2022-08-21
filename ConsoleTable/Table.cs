@@ -292,11 +292,10 @@ namespace ConsoleTable
             ModifiedRows = Rows.Select(x =>
                 x.Select((v, i) =>
                     _consoleTableOptions.CustomFormats.ContainsKey(i)
-                        ? string.Format($"{_consoleTableOptions.CustomFormats[i]}", v, _consoleTableOptions.CultureInfo)
+                        ? string.Format(_consoleTableOptions.CultureInfo,$"{_consoleTableOptions.CustomFormats[i]}", v)
                         : v).Select(v =>
                     _consoleTableOptions.CustomFormats.ContainsKey(v.GetType())
-                        ? string.Format($"{_consoleTableOptions.CustomFormats[v.GetType()]}", v,
-                            _consoleTableOptions.CultureInfo)
+                        ? string.Format(_consoleTableOptions.CultureInfo,$"{_consoleTableOptions.CustomFormats[v.GetType()]}", v)
                         : v).ToArray()).ToList();
         }
 

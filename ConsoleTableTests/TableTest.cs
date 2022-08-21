@@ -1,4 +1,5 @@
-﻿using ConsoleTable;
+﻿using System.Globalization;
+using ConsoleTable;
 using Xunit;
 
 namespace ConsoleTableTests;
@@ -28,7 +29,7 @@ public class TableTest
     }
 
     [Fact]
-    public void CustomFormattingTest()
+    public void CustomFormattingAndCultureInfoTestTest()
     {
         var table = new Table()
             .AddColumn("#", "Name", "Surname", "Growth", "Date")
@@ -37,7 +38,8 @@ public class TableTest
             .AddCustomFormat(3, "{0:0.00}")
             .AddCustomFormat(typeof(DateTime), "{0:HH:mm}")
             .AddRow(1, "Name1", "Surname", 3.22, DateTime.Parse("2002/02/04 15:32"))
-            .AddRow(2, "Name2", "Surname22", 5.9, DateTime.Parse("2002.02.03 12:32"));
+            .AddRow(2, "Name2", "Surname22", 5.9, DateTime.Parse("2002.02.03 12:32"))
+            .AddCultureInfo(new CultureInfo("uk-UA"));
 
         var actual = table.ToString();
         const string expected = "| #    | Name        | Surname   | Growth | Date  |\r\n" +
