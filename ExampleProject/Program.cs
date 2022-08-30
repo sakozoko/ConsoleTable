@@ -56,6 +56,12 @@ namespace ExampleProject
                 .AddAlignment(Alignment.Center, 1)
                 .AddSeparatorForEachRow();
             Console.WriteLine(table4.ToString());
+            //fifth example
+            var table5 = new Table()
+                .AddColumn("#", "Name")
+                .AddRowWithoutColumn("Anything text")
+                .AddRow("1", "Namee");
+            Console.WriteLine(table5.ToString());
         }
     }
 }
