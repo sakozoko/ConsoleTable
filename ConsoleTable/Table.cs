@@ -236,6 +236,7 @@ namespace ConsoleTable
 
             strBuilder.AppendLine(header);
             strBuilder.Append(divider);
+            AddNestedElements(strBuilder, -1);
             for (var i = 0; i < formattedRows.Count; i++)
             {
                 strBuilder.Append("\n" + formattedRows[i]);
@@ -251,16 +252,18 @@ namespace ConsoleTable
 
         private void AddNestedElements(StringBuilder stringBuilder, int indexOfRow)
         {
-            if (_consoleTableOptions.RowsWithoutColumns.ContainsKey(indexOfRow))
-                foreach (var str in _consoleTableOptions.RowsWithoutColumns[indexOfRow]
-                             .Where(x => x.RowOrder == RowOrder.Before))
-                    stringBuilder.Append("\n" + str.Value);
+            AddNestedRows(stringBuilder, indexOfRow, RowOrder.Before);
 
             AddNestedTables(stringBuilder, indexOfRow);
 
+            AddNestedRows(stringBuilder, indexOfRow, RowOrder.After);
+        }
+
+        private void AddNestedRows(StringBuilder stringBuilder, int indexOfRow, RowOrder order)
+        {
             if (_consoleTableOptions.RowsWithoutColumns.ContainsKey(indexOfRow))
                 foreach (var str in _consoleTableOptions.RowsWithoutColumns[indexOfRow]
-                             .Where(x => x.RowOrder == RowOrder.After))
+                             .Where(x => x.RowOrder == order))
                     stringBuilder.Append("\n" + str.Value);
         }
 
