@@ -39,7 +39,12 @@ namespace ConsoleTable
 
         public Table AddColumn(params string[] strings)
         {
-            foreach (var s in strings.Where(x => x != null)) Columns.Add(s);
+            if (strings is null || strings.Any(x => x is null))
+            {
+                throw new ArgumentNullException(nameof(strings));
+            }
+            foreach (var s in strings) 
+                Columns.Add(s);
 
             if (_consoleTableOptions.Alignments.Length == 0)
             {
@@ -101,6 +106,10 @@ namespace ConsoleTable
 
         public Table AddRow(params object[] strings)
         {
+            if (strings is null || strings.Any(x => x is null))
+            {
+                throw new ArgumentNullException(nameof(strings));
+            }
             Rows.Add(strings);
 
             return this;
@@ -128,11 +137,19 @@ namespace ConsoleTable
 
         public Table AddRowWithoutColumn(string str, RowOrder rowOrder = RowOrder.Before)
         {
+            if (string.IsNullOrEmpty(str))
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
             return AddRowWithoutColumn(new RowWithoutColumn(str, rowOrder));
         }
 
         public Table AddRowWithoutColumn(RowWithoutColumn row)
         {
+            if (row is null)
+            {
+                throw new ArgumentNullException(nameof(row));
+            }
             var currentLastIndex = Rows.Count - 1;
             if (_consoleTableOptions.RowsWithoutColumns.ContainsKey(currentLastIndex))
             {
@@ -153,6 +170,10 @@ namespace ConsoleTable
 
         public Table AddTable(Table table)
         {
+            if (table is null)
+            {
+                throw new ArgumentNullException(nameof(table));
+            }
             var currentLastIndex = Rows.Count - 1;
             if (_consoleTableOptions.NestedTables.ContainsKey(currentLastIndex))
             {
@@ -167,6 +188,10 @@ namespace ConsoleTable
 
         public static Table From<T>(IEnumerable<T> enumerable)
         {
+            if (enumerable is null)
+            {
+                throw new ArgumentNullException(nameof(enumerable));
+            }
             var table = new Table();
 
             foreach (var propertyInfo in typeof(T).GetProperties())

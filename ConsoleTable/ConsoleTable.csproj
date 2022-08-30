@@ -16,6 +16,8 @@
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageVersion>1.0.1</PackageVersion>
+        <PackageReleaseNotes>Fixed resulting table with different cultures </PackageReleaseNotes>
     </PropertyGroup>
 
 </Project>
